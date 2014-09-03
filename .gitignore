@@ -1,0 +1,6 @@
+__pycache__
+*.egg-info
+build/*
+demo/helloworld/static/bundle.js
+demo/fromtut/fromtut/statics/bundle.js
+

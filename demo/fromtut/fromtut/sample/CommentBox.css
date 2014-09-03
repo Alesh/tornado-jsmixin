@@ -1,0 +1,25 @@
+.fromtut-sample-CommentBox {
+	padding: 10px 0;
+}
+
+.fromtut-sample-CommentBox input {
+	display: block;
+}
+
+.fromtut-sample-CommentBox form {
+	margin-top: 0.5em;
+	padding-top: 0.5em;
+	border-top: 1px solid gray;
+}
+
+.fromtut-sample-CommentBox .comment h2 {
+	font-weight: bold;
+}
+
+.fromtut-sample-CommentBox .comment span {
+	margin-left: 20px;
+}
+
+.fromtut-sample-CommentBox .comment {
+	padding-bottom: 0.5em;
+}

@@ -1,0 +1,2 @@
+recursive-include jsmixin *.py
+recursive-include jsmixin *.js

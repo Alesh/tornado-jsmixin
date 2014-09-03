@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>fromtut</title>
+    <link href="{{ static_url('reset.css') }}" type="text/css" rel="stylesheet" />
+    <link href="{{ static_url('bundle.css') }}" type="text/css" rel="stylesheet" />
+    <link href="{{ static_url('styles.css') }}" type="text/css" rel="stylesheet" />
+    <script src="{{ static_url('bundle.js') }}"></script>
+</head>
+<body>
+	<section>
+	{% module jsx("fromtut.sample.CommentBox", url="comments.json", pollInterval=3000) %}	
+	</section>
+</body>
+</html>
