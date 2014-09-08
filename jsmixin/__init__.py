@@ -1,2 +1,2 @@
 from jsmixin.CommonMixin import CommonMixin
-from jsmixin.ReactMixin import ReactMixin
+from jsmixin.ReactMixin import ReactMixin, ReactUIModule

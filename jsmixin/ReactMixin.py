@@ -7,6 +7,7 @@ import execjs
 import os.path
 import importlib
 import tornado.web
+import tornado.autoreload 
 from jsmixin.CommonMixin import CommonMixin
 
 
@@ -17,7 +18,7 @@ class ReactUIModule(tornado.web.UIModule):
         """ Renders JSX components in initial state. """
         rendered_code = ""
         element_id = id or uuid.uuid1()
-        props = self._prepareProps(props, component);
+        props = self.prepareProps(props, component);
         class_name = component.replace('.', '-') + (' '+class_name if class_name is not None else '')
         if not (self.handler.application.settings.get('no_render', False) or no_render):
             try:
@@ -29,7 +30,7 @@ class ReactUIModule(tornado.web.UIModule):
                         '</script>').format(component, props, element_id)
         return '<{3} id="{0}" class="{1}">{2}</{3}>'.format(element_id, class_name, rendered_code, tag) + startup_code
     
-    def _prepareProps(self, props, component_name):
+    def prepareProps(self, props, component_name):
         return json.dumps(props)
 
 
@@ -65,8 +66,6 @@ class ReactMixin(CommonMixin):
                                     component = getattr(module, name)
                                     if component:
                                         self.registerComponent(component)
-                                        if hasattr(component, 'onRegister'):
-                                            component.onRegister(self)
                                     else:
                                         raise
                                 except:
@@ -77,7 +76,12 @@ class ReactMixin(CommonMixin):
             with open(self._js_bundle) as file:
                 bundle = file.read()
             with open(os.path.join(os.path.dirname(__file__), 'ReactMixin.js')) as file:
-                self._ctx = execjs.compile(bundle+file.read());        
+                self._ctx = execjs.compile(bundle+file.read());
+        if self.settings.get('debug'):
+            for filename in self._styles.values():
+                tornado.autoreload.watch(filename)
+            for filename in self._scripts.values():
+                tornado.autoreload.watch(filename)
 
 
     def registerComponent(self, component, alias=None):
